@@ -65,4 +65,4 @@ print "Input:", getData(head)
 removeDups(head)
 print "Result:", getData(head)
 
-#removeDups(None)
+removeDups(None)
