@@ -6,6 +6,9 @@ class Node:
         self.d = d
         self.next = None
 
+    def add(self, d):
+        self.addToTail(d)
+
     def addToTail(self, d):
         """
         Add element to tail of the list
