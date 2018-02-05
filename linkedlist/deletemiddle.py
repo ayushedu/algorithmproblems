@@ -15,8 +15,10 @@ def deleteMiddle(head):
         else:
             tmp = tmp.next
 
-    
-    middleIdx = nodeLen / 2
+    if nodeLen % 2 == 0:
+        middleIdx = nodeLen / 2
+    else:
+        middleIdx = (nodeLen + 1) / 2
     if middleIdx > 1 and middleIdx < nodeLen:
         i = 1
         while(head.next):
@@ -38,6 +40,16 @@ head.addToTail('c')
 head.addToTail('d')
 head.addToTail('e')
 head.addToTail('f')
+
+print "Input:", head.getData() 
+deleteMiddle(head)
+print "Ouptut:", head.getData()
+
+head = Node('a')
+head.addToTail('b')
+head.addToTail('c')
+head.addToTail('d')
+head.addToTail('e')
 
 print "Input:", head.getData() 
 deleteMiddle(head)
