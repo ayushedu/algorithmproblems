@@ -1,28 +1,23 @@
 from node import Node
 
-def reverse_list(node):
-
-    if node.next is None:
-        return [node.d]
-    else:
-        rs = reverse_list(node.next)
-
-    rs.append(node.d)
-    return rs
-
 def reverse(node):
+    """ Return reversed linked list """
 
-    list_ = reverse_list(node)
+    list_ = node.getData()
+    print "list", list_
     rs = None
-    rs_end = None
-    for val in list_:
+
+    try:
         if rs is None:
-            rs = Node(val)
+            rs = Node(list_.pop())
         else:
-           rs.add(val)
+            rs.add(list_.pop())
+    except IndexError:
+        pass  # List is now empty
     return rs
 
 def isPalindrome(node):
+    """ Return whether palindrome or not """
 
     reversed = reverse(node)
 
