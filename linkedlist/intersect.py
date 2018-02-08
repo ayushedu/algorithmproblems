@@ -1,12 +1,12 @@
 from node import Node
 
-def search(data, node):
+def search(node, llist):
     """Search data in linkedlist"""
 
-    while node:
-        if node.d == data:
+    while llist:
+        if llist == node:
             return True
-        node = node.next
+        llist = llist.next
 
     return False
 
@@ -18,21 +18,23 @@ def intersect(first, second):
 
     rs = []
     while first:
-        if search(first.d, second):
-            rs.append(first.d)
+        if search(first, second):
+            rs = first.getData()
+            break
         first = first.next
 
     return rs
 
 first = Node(1)
-first.add(3)
-first.add(3)
-first.add(2)
+l1 = Node(2)
+l3 = Node(3)
+first.next = l1
+l1.next = l3
 
-second = Node(1)
-second.add(3)
-second.add(3)
-second.add(1)
+second = Node(10)
+l2 = Node(4)
+second.next = l2
+l2.next = l1
 
 print 'input:', first.getData(), second.getData()
 print 'intersecting nodes:', intersect(first, second)
