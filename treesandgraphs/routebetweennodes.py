@@ -1,4 +1,25 @@
 from node import Node
+from collections import deque
+
+def isRoute_BFS(root, k):
+    if root is None or k is None:
+        return False
+        
+    q = deque()
+    q.appendleft(root)
+
+    while(len(q) > 0):
+        n = q.pop()
+        n.visited = True
+        
+        if n.name == k:
+            return True
+        else:
+            for child in n.children:
+                if child.visited == False:
+                    q.appendleft(child)
+
+    return False
 
 def isRoute_DFS(root, k):
     """Return true if there is a route between root node and node of name k
@@ -43,7 +64,7 @@ n2.children.append(n1)
 n3.children.append(n2)
 n3.children.append(n4)
 
-rs = isRoute_DFS(root, 4)
+rs = isRoute_BFS(root, 4)
 print "Route from 0 to 4:", rs
 
-print "Route from None to 4:", isRoute_DFS(None, 4)
+print "Route from None to 4:", isRoute_BFS(None, 4)
