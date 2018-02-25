@@ -1,27 +1,50 @@
 from treenode import TreeNode
+from collections import OrderedDict
+
+def incrementHashTable(pathDict, key, delta):
+    """Increment the dictionary for keeping running sum per node"""
+
+    newCount = delta
+    hasKey = False
+
+    if pathDict.has_key(key):
+        newCount += pathDict.get(key)
+        hasKey = True
+
+    if newCount == 0 and hasKey:
+        del pathDict[key]
+
+    pathDict[key] = newCount
 
 def countPathWithSum(root, target):
-    if root is None:
-        return 0
+    return countPathWithSumFromNode(root, target, 0, OrderedDict())
 
-    pathFromRoot = countPathWithSumFromNode(root, target, 0)
-    pathFromLeft = countPathWithSum(root.left, target)
-    pathFromRight = countPathWithSum(root.right, target)
 
-    return pathFromRoot + pathFromLeft + pathFromRight
+def countPathWithSumFromNode(node, target, runningSum, pathDict):
+    """Return total path with sum equal to target"""
 
-def countPathWithSumFromNode(node, target, current):
-    
     if node is None:
         return 0
 
-    current += node.name
+    print 'Before:', node.name, pathDict
+
+    runningSum += node.name
+    sum = runningSum - target
     totalPath = 0
-    if current == target:
+
+    if pathDict.has_key(sum):
+        totalPath = pathDict.get(sum)
+
+    if runningSum == target:
         totalPath += 1
         
-    totalPath += countPathWithSumFromNode(node.left, target, current)
-    totalPath += countPathWithSumFromNode(node.right, target, current)
+    incrementHashTable(pathDict, runningSum, 1)
+    totalPath += countPathWithSumFromNode(node.left, target, runningSum, pathDict)
+    totalPath += countPathWithSumFromNode(node.right, target, runningSum, pathDict)
+    incrementHashTable(pathDict, runningSum, -1)
+
+    print 'After:', node.name, pathDict, totalPath
+
     return totalPath
 
 # Input
