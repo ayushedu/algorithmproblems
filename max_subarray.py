@@ -4,7 +4,7 @@ Given an array on n, calculate max subarray sum
 
 input = [-1,2,4,-3,5,2,-5,2]
 
-# time complexity O(n2)
+# O(n2)
 def brute_force():
     max = input[0]
     count = len(input)
@@ -18,4 +18,21 @@ def brute_force():
 
     print("max using brute force is",max)
 
-brute_force()
+# O(n)
+def efficient_one():
+    sum = 0
+    best = 0
+    n = len(input)
+
+    for x in input:
+        if(x < sum + x):
+            sum = sum + x
+        else:
+            sum = x
+
+        if(best < sum):
+            best = sum
+
+    print(best)
+    
+efficient_one()
